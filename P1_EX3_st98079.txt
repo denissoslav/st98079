@@ -1,0 +1,10 @@
+// swap T1 and T2 if X == 1
+LOD X
+JMZ 9
+LOD T1
+STO W
+LOD T2
+STO T1
+LOD W
+STO T2
+HLT

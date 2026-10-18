@@ -1,0 +1,36 @@
+// Conditional sum of array T1..T10, result in W. X: 0=all, 1=first five, 2=last five, other=nothing
+LOD X       // ACC = X (mode selector)
+JMZ 9       // X == 0: go to total sum block
+SUB #1      // ACC = X - 1
+JMZ 21      // X == 1: go to first five block
+SUB #1      // ACC = X - 2
+JMZ 28      // X == 2: go to last five block
+HLT         // any other X: do nothing, W stays unchanged
+// X = 0: sum of all ten numbers
+LOD T1      // ACC = T1
+ADD T2      // ACC = T1 + T2
+ADD T3      // add T3
+ADD T4      // add T4
+ADD T5      // add T5
+ADD T6      // add T6
+ADD T7      // add T7
+ADD T8      // add T8
+ADD T9      // add T9
+ADD T10     // add T10: ACC = total sum
+JMP 34      // go to save result
+// X = 1: sum of the first five numbers
+LOD T1      // ACC = T1
+ADD T2      // add T2
+ADD T3      // add T3
+ADD T4      // add T4
+ADD T5      // add T5: ACC = sum of T1..T5
+JMP 34      // go to save result
+// X = 2: sum of the last five numbers
+LOD T6      // ACC = T6
+ADD T7      // add T7
+ADD T8      // add T8
+ADD T9      // add T9
+ADD T10     // add T10: ACC = sum of T6..T10
+// save result
+STO W       // W = ACC (the selected sum)
+HLT         // stop

@@ -1,0 +1,30 @@
+// Sort T1,T2: opposite order of input. X,Y are temporary registers
+LOD T1      // ACC = T1
+STO X       // X = copy of T1 (counter)
+LOD T2      // ACC = T2
+STO Y       // Y = copy of T2 (counter)
+LOD X       // loop start: ACC = X
+JMZ 14      // X reached 0 first (or tie): T1 <= T2, go to block A
+SUB #1      // ACC = X - 1
+STO X       // save X
+LOD Y       // ACC = Y
+JMZ 23      // Y reached 0 first while X > 0: T1 > T2, go to block B
+SUB #1      // ACC = Y - 1
+STO Y       // save Y
+JMP 5       // repeat the loop
+LOD Y       // block A: X is 0, check whether Y is 0 too
+JMZ 22      // Y == 0: T1 == T2, nothing to sort, go to HLT
+LOD T1      // T2 > T1: sort descending (larger into T1). ACC = T1
+STO X       // X = old T1 (temporary storage)
+LOD T2      // ACC = T2
+STO T1      // T1 = T2 (larger number)
+LOD X       // ACC = old T1
+STO T2      // T2 = old T1 (smaller number)
+HLT         // block A done
+LOD T1      // block B: T1 > T2, sort ascending (smaller into T1). ACC = T1
+STO X       // X = old T1 (temporary storage)
+LOD T2      // ACC = T2
+STO T1      // T1 = T2 (smaller number)
+LOD X       // ACC = old T1
+STO T2      // T2 = old T1 (larger number)
+HLT         // block B done

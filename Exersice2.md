@@ -84,10 +84,10 @@ HLT
 
 | Program | Initial | Final |
 |---|---|---|
-| 1 | ![p1 initial](screenshots/p01_initial.png) | ![p1 final](screenshots/p01_final.png) |
-| 2 | ![p2 initial](screenshots/p02_initial.png) | ![p2 final](screenshots/p02_final.png) |
-| 3 | ![p3 initial](screenshots/p03_initial.png) | ![p3 final](screenshots/p03_final.png) |
-| 4 | ![p4 initial](screenshots/p04_initial.png) | ![p4 final](screenshots/p04_final.png) |
+| 1 | ![p1 initial](p01_initial.png) | ![p1 final](p01_final.png) |
+| 2 | ![p2 initial](p02_initial.png) | ![p2 final](p02_final.png) |
+| 3 | ![p3 initial](p03_initial.png) | ![p3 final](p03_final.png) |
+| 4 | ![p4 initial](p04_initial.png) | ![p4 final](p04_final.png) |
 
 **How it works:** `LOD X` loads the first operand into ACC (overwriting whatever was there, so the initial ACC value is irrelevant). The ALU combines ACC with `Y` and writes the result back to ACC. `STO Z` saves it to memory and `HLT` stops. X and Y are only read, never modified. The ALU display after halting shows the two operands (for example 6 and 7 in program 3).
 
@@ -136,7 +136,7 @@ Computes **W = X (op) Z**, where `Y` selects the operation:
 | ALU | 0, 0 | 3, 2 |
 | PC | 3 | 0 |
 
-![p5 initial](screenshots/p05_initial.png) ![p5 final](screenshots/p05_final.png)
+![p5 initial](p05_initial.png) ![p5 final](p05_final.png)
 
 **Evaluation: Yes** for the tested branch (3 + 2 = 5). Only the addition branch was run, see [Limitations](#limitations-of-this-report).
 
@@ -178,7 +178,7 @@ Computes **Z = X^Y** by repeated multiplication, using `Y` as the loop counter.
 | IR | empty | HLT |
 | ALU | 0, 0 | 1, 1 |
 
-![p6 initial](screenshots/p06_initial.png) ![p6 final](screenshots/p06_final.png)
+![p6 initial](p06_initial.png) ![p6 final](p06_final.png)
 
 **Evaluation: Yes.** 3² = 9. **Side effect:** `Y` is consumed as the counter and ends at 0. For Y = 0 the loop body never runs and Z = 1 (X⁰ = 1), by code inspection.
 
@@ -217,7 +217,7 @@ Computes **Y = sqrt(X)** with the Babylonian (Newton) method: `Y = (Y + X/Y) / 2
 | IR | empty | HLT |
 | ALU | 0, 0 | 10, 0 |
 
-![p7 initial](screenshots/p07_initial.png) ![p7 final](screenshots/p07_final.png)
+![p7 initial](p07_initial.png) ![p7 final](p07_final.png)
 
 **Evaluation: Yes.** sqrt(25) = 5. The result is exact for perfect squares; for other inputs integer division gives an integer approximation. The program terminates because division is integer (with fractional division Z would never hit exactly 0). It is inefficient: Y converges in about 3-4 steps but X/2 iterations are always run. **Side effect:** Z is consumed.
 
@@ -257,7 +257,7 @@ Despite the name, it does **not** compute a remainder. It compares X and Y (comm
 | IR | empty | empty |
 | ALU | 0, 0 | 0, 1 |
 
-![p8 initial](screenshots/p08_initial.png) ![p8 final](screenshots/p08_final.png)
+![p8 initial](p08_initial.png) ![p8 final](p08_final.png)
 
 **Evaluation: Yes** as a comparison (3 > 2 → Z = 1). **Notes:** the name does not match the function; the inputs X and Y are destroyed; for X = Y the code gives Z = 0 (so the real meaning is "X ≤ Y → 0").
 
@@ -291,7 +291,7 @@ Computes **Z = 1 if X > Y, otherwise 0**, and also handles negative numbers.
 
 The final T1-T4 values match the hand trace, which confirms the execution path.
 
-![p9 initial](screenshots/p09_initial.png) ![p9 final](screenshots/p09_final.png)
+![p9 initial](p09_initial.png) ![p9 final](p09_final.png)
 
 **Evaluation: Yes.** 3 > 2 → Z = 1. The comparison is strict (X = Y gives Z = 0, by code inspection). X and Y are unchanged because the loop works on the copies T1-T4.
 
@@ -329,7 +329,7 @@ Computes **Z = 1 if X is even, otherwise 0**, using integer division.
 | IR | empty | empty |
 | ALU | 0, 0 | 0, 1 |
 
-![p10 initial](screenshots/p10_initial.png) ![p10 final](screenshots/p10_final.png)
+![p10 initial](p10_initial.png) ![p10 final](p10_final.png)
 
 **Evaluation: Yes.** 4 is even → Z = 1. `Y` is overwritten as a temporary; X is preserved. The program only works because division is integer.
 
@@ -380,7 +380,7 @@ Computes **Z = 1 if X < 0, otherwise 0** (zero counts as positive).
 
 The final T1 = 0 and T2 = 3 match the hand trace.
 
-![p11 initial](screenshots/p11_initial.png) ![p11 final](screenshots/p11_final.png)
+![p11 initial](p11_initial.png) ![p11 final](p11_final.png)
 
 **Evaluation: Yes.** -3 < 0 → Z = 1. T1 and T2 are overwritten as a side effect. Cost grows roughly with X² iterations.
 
